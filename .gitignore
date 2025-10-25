@@ -1,0 +1,41 @@
+# Dependencias
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build output
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# Archivos de entorno
+.env
+.env.*
+
+# Archivos temporales
+*.log
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+
+# Configuración local
+.vscode/
+.idea/
+*.local
+
+# Archivos del sistema
+*.swp
+*.swo
+
+# Ignorar TODO lo que haya en input/
+input/**
+
+# …pero mantener el marcador de carpeta
+!input/.gitkeep
+# Ignorar TODO lo que haya en output/
+output/**   
+# …pero mantener el marcador de carpeta
+!output/.gitkeep
