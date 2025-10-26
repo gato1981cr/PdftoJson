@@ -48,3 +48,6 @@ output/**/*.png
 output/*.png
 # …pero mantener el marcador de carpeta
 !output/.gitkeep
+
+tmp_ocr/
+output/
