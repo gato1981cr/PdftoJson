@@ -43,5 +43,11 @@ input/**
 output/**
 !output/**/
 !output/**/*.txt
+# Asegurar que ningún PNG dentro de output/ sea versionado
+output/**/*.png
+output/*.png
 # …pero mantener el marcador de carpeta
 !output/.gitkeep
+
+tmp_ocr/
+output/
