@@ -1,5 +1,6 @@
 import { pdfToImages } from "./pipelines/pdfToImages";
 import { ocrPage } from "./pipelines/ocrPage";
+import { parseMutualAccount } from "./parsers/parseMutualAccount"; // 🔽 NUEVO
 import { writeFileSync, mkdirSync, readdirSync, statSync } from "node:fs";
 import { join, basename } from "node:path";
 
@@ -24,9 +25,29 @@ async function processPdf(pdfPath: string) {
     }
   }
 
+  // 1️⃣ Genera el TXT consolidado
   const outTxt = join(outDir, `${base}-ocr.txt`);
   writeFileSync(outTxt, allText.join("\n"), "utf8");
-  console.log(`[OK] OCR completado → ${outTxt}\n`);
+  console.log(`[OK] OCR completado → ${outTxt}`);
+
+  // 2️⃣ 🔽 NUEVO PASO: parsear el texto y crear JSON
+  try {
+    const txs = parseMutualAccount(outTxt);
+    const result = {
+      account: {
+        holder: "JOHAN ENRIQUE GONZALEZ MOREIRA",
+        currency: "CRC",
+        period: { from: "2025-10-01", to: "2025-10-31" },
+        source_file: basename(pdfPath)
+      },
+      transactions: txs
+    };
+    const outJson = join(outDir, `${base}.json`);
+    writeFileSync(outJson, JSON.stringify(result, null, 2), "utf8");
+    console.log(`[OK] JSON generado → ${outJson}\n`);
+  } catch (err) {
+    console.error("[ERROR] Fallo al generar JSON:", err);
+  }
 }
 
 async function main() {
