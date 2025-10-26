@@ -32,10 +32,16 @@ Thumbs.db
 
 # Ignorar TODO lo que haya en input/
 input/**
+# allow directories so that un-ignores for files work
+!input/**/
+# allow any .txt files inside input (recursive)
+!input/**/*.txt
 
 # …pero mantener el marcador de carpeta
 !input/.gitkeep
 # Ignorar TODO lo que haya en output/
-output/**   
+output/**
+!output/**/
+!output/**/*.txt
 # …pero mantener el marcador de carpeta
 !output/.gitkeep
